@@ -1,0 +1,89 @@
+---
+architecture: M1
+cluster_name: patroni
+cluster_tags: {}
+
+cluster_vars:
+  enable_pg_backup_api: false
+  etcd_location: main
+  failover_manager: patroni
+  postgres_flavour: postgresql
+  postgres_version: '15'
+  preferred_python_version: python3
+  use_volatile_subscriptions: false
+
+locations:
+- Name: main
+
+instance_defaults:
+  platform: bare
+  vars:
+    ansible_user: root
+
+instances:
+- Name: pg1
+  location: main
+  node: 1
+  public_ip: 192.168.56.11
+  role:
+  - primary
+- Name: pg2
+  location: main
+  node: 2
+  public_ip: 192.168.56.12
+  role:
+  - replica
+  upstream: pg1
+- Name: pg3
+  location: main
+  node: 3
+  public_ip: 192.168.56.13
+  role:
+  - replica
+  upstream: pg1
+- Name: etcd1
+  location: main
+  node: 4
+  public_ip: 192.168.56.14
+  role:
+  - etcd
+  vars:
+    etcd_location: main
+- Name: etcd2
+  location: main
+  node: 5
+  public_ip: 192.168.56.15
+  role:
+  - etcd
+  vars:
+    etcd_location: main
+- Name: etcd3
+  location: main
+  node: 6
+  public_ip: 192.168.56.16
+  role:
+  - etcd
+  vars:
+    etcd_location: main
+- Name: ha1
+  location: main
+  node: 7
+  public_ip: 192.168.56.17
+  role:
+  - haproxy
+  vars:
+    haproxy_backend_servers:
+    - pg1
+    - pg2
+    - pg3
+- Name: ha2
+  location: main
+  node: 8
+  public_ip: 192.168.56.18
+  role:
+  - haproxy
+  vars:
+    haproxy_backend_servers:
+    - pg1
+    - pg2
+    - pg3
