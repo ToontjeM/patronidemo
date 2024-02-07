@@ -21,7 +21,6 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--groups", "/Patroni"]
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     end
-    
     nodes.vm.synced_folder ".", "/vagrant"
     nodes.vm.synced_folder "./keys", "/vagrant_keys"
     nodes.vm.provision "shell", inline: "cp /vagrant/.vagrant/machines/console/virtualbox/private_key /vagrant_keys/key"
@@ -50,7 +49,6 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--groups", "/Patroni"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       end
-      
       nodes.vm.synced_folder ".", "/vagrant"
       nodes.vm.synced_folder "./keys", "/vagrant_keys"
       nodes.vm.provision "shell", inline: <<-SHELL
@@ -58,7 +56,6 @@ Vagrant.configure("2") do |config|
         echo -e "root\nroot" | passwd root
         sudo systemctl restart sshd
         sudo sh /vagrant_keys/config.sh
-        sudo sh /vagrant_keys/generate_public_key.sh
         sudo sh /vagrant_keys/copy_keys.sh
         systemctl stop firewalld
       SHELL
@@ -79,7 +76,6 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--groups", "/Patroni"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       end
-      
       nodes.vm.synced_folder ".", "/vagrant"
       nodes.vm.synced_folder "./keys", "/vagrant_keys"
       nodes.vm.provision "shell", inline: <<-SHELL
@@ -87,7 +83,6 @@ Vagrant.configure("2") do |config|
         echo -e "root\nroot" | passwd root
         sudo systemctl restart sshd
         sudo sh /vagrant_keys/config.sh
-        sudo sh /vagrant_keys/generate_public_key.sh
         sudo sh /vagrant_keys/copy_keys.sh
         systemctl stop firewalld
       SHELL
@@ -108,7 +103,6 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--groups", "/Patroni"]
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       end
-
       nodes.vm.synced_folder ".", "/vagrant"
       nodes.vm.synced_folder "./keys", "/vagrant_keys"
       nodes.vm.provision "shell", inline: <<-SHELL
@@ -116,7 +110,6 @@ Vagrant.configure("2") do |config|
         echo -e "root\nroot" | passwd root
         sudo systemctl restart sshd
         sudo sh /vagrant_keys/config.sh
-        sudo sh /vagrant_keys/generate_public_key.sh
         sudo sh /vagrant_keys/copy_keys.sh
         systemctl stop firewalld
       SHELL

@@ -18,7 +18,7 @@ locations:
 instance_defaults:
   platform: bare
   vars:
-    ansible_user: root
+    ansible_user: vagrant
 
 instances:
 - Name: pg1
@@ -44,7 +44,7 @@ instances:
 - Name: etcd1
   location: main
   node: 4
-  public_ip: 192.168.56.14
+  public_ip: 192.168.56.21
   role:
   - etcd
   vars:
@@ -52,7 +52,7 @@ instances:
 - Name: etcd2
   location: main
   node: 5
-  public_ip: 192.168.56.15
+  public_ip: 192.168.56.22
   role:
   - etcd
   vars:
@@ -60,7 +60,7 @@ instances:
 - Name: etcd3
   location: main
   node: 6
-  public_ip: 192.168.56.16
+  public_ip: 192.168.56.23
   role:
   - etcd
   vars:
@@ -68,7 +68,7 @@ instances:
 - Name: ha1
   location: main
   node: 7
-  public_ip: 192.168.56.17
+  public_ip: 192.168.56.31
   role:
   - haproxy
   vars:
@@ -79,7 +79,7 @@ instances:
 - Name: ha2
   location: main
   node: 8
-  public_ip: 192.168.56.18
+  public_ip: 192.168.56.32
   role:
   - haproxy
   vars:

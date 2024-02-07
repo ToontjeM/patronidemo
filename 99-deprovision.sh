@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-source env.sh
+source ./env.sh
 
 printf "$H --- De-provisioning nodes --- $N\n"
 vagrant destroy --force
