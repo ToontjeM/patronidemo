@@ -23,3 +23,8 @@ sudo cp /config/etcd-e2.service /etc/systemd/system/etcd-e2.service
 
 /usr/local/bin/etcd --version
 ETCDCTL_API=3 /usr/local/bin/etcdctl version
+
+printf "${G}*** Starting etcd on e1 ***${N}\n"
+sudo systemctl daemon-reload
+sudo systemctl enable etcd-e2.service
+

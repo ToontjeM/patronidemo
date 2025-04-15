@@ -8,6 +8,7 @@ systemctl disable firewalld.service
 sudo dnf remove firewalld
 sed -i 's/%wheel/#%wheel/g' /etc/sudoers
 sed -i 's/# #%wheel/%wheel/g' /etc/sudoers
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 
 printf "${R}*** Configuring repo with token ${EDB_SUBSCRIPTION_TOKEN} ***${N}\n"

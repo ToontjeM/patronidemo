@@ -3,22 +3,25 @@ Description=etcd
 Documentation=https://github.com/coreos/etcd
 Conflicts=etcd.service
 Conflicts=etcd2.service
+After=network-online.target
+Wants=network-online.target
 
 [Service]
+ExecStartPre=/usr/bin/bash -c 'until ping -c1 e2 && ping -c1 e3; do sleep 2; done'
 Type=notify
 Restart=always
 RestartSec=5s
 LimitNOFILE=40000
 TimeoutStartSec=0
 
-ExecStart=/usr/local/bin/etcd --name e1 \
-  --data-dir /var/lib/etcd \
+ExecStart=/usr/local/bin/etcd --name etcd-e1 \
+  --data-dir var/lib/etcd \
   --listen-client-urls http://192.168.56.21:2379 \
   --advertise-client-urls http://192.168.56.21:2379 \
   --listen-peer-urls http://192.168.56.21:2380 \
   --initial-advertise-peer-urls http://192.168.56.21:2380 \
-  --initial-cluster e1=http://192.168.56.21:2380,e2=http://192.168.56.22:2380,e3=http://192.168.56.23:2380 \
-  --initial-cluster-token cluster1 \
+  --initial-cluster etcd-e1=http://192.168.56.21:2380,etcd-e2=http://192.168.56.22:2380,etcd-e3=http://192.168.56.23:2380 \
+  --initial-cluster-token tkn \
   --initial-cluster-state new
 
 [Install]
