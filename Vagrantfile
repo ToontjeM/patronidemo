@@ -57,20 +57,21 @@ Vagrant.configure("2") do |config|
     end
   end
 
-#  # Postgres Nodes
-#  (1..3).each do |i|
-#    config.vm.define "p#{i}" do |nodes|
-#      nodes.vm.box = var_box
-#      nodes.vm.hostname = "p#{i}"
-#      nodes.vm.network "private_network", ip: "192.168.56.1#{i}"
-#      nodes.vm.provider "virtualbox" do |v|
-#        v.memory = "1024"
-#        v.cpus = "2"
-#        v.name = "p#{i}"
-#      end
-#      nodes.vm.provision "shell", path: "scripts/bootstrap_p#{i}.sh"
-#    end
-#   end
+  # Postgres Nodes
+  (1..3).each do |i|
+    config.vm.provision "shell", path: "scripts/bootstrap_p_all.sh"
+    config.vm.define "p#{i}" do |nodes|
+      nodes.vm.box = var_box
+      nodes.vm.hostname = "p#{i}"
+      nodes.vm.network "private_network", ip: "192.168.56.1#{i}"
+      nodes.vm.provider "virtualbox" do |v|
+        v.memory = "1024"
+        v.cpus = "2"
+        v.name = "p#{i}"
+      end
+      nodes.vm.provision "shell", path: "scripts/bootstrap_p#{i}.sh"
+    end
+   end
 
 #   # HA Proxies
 #  (1..2).each do |i|

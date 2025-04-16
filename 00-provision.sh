@@ -18,9 +18,9 @@ vagrant ssh e3 -c "sudo systemctl status --no-pager etcd-e3.service"
 
 vagrant ssh e1 -c "ETCDCTL_API=3 /usr/local/bin/etcdctl --endpoints 192.168.56.21:2379,192.168.56.22:2379,192.168.56.23:2379 endpoint health"
 
-#vagrant up --provision p1
-#vagrant up --provision p2
-#vagrant up --provision p3
+vagrant up --provision p1
+vagrant up --provision p2
+vagrant up --provision p3
 #
 #vagrant up --provision h1
 #vagrant up --provision h2
